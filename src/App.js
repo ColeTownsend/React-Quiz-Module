@@ -3,17 +3,18 @@ import React, { Component } from 'react';
 var Question = React.createClass({
     render: function() {
         if (this.props.question.isRight) {
-          return (<p>{this.props.question.pre} {this.props.question.answer}</p>)
+          return (<span>{this.props.question.pre} {this.props.question.answer} </span>)
         } else {
-          return (<p>{this.props.question.pre}<input onChange={this.handleChange}></input></p>);
+          return (<span>{this.props.question.pre} <input onChange={this.handleChange}></input> </span>);
         }
     },
     // handle changes in the input
     handleChange: function(event) {
-      console.log(event.target.value);
       this.props.onAnswer();
       if (event.target.value === this.props.question.answer) {
-        this.props.onAnswer(this.props.questions.id);
+        this.props.onAnswer(this.props.question.id);
+        this.props.question.isRight = true;
+        console.log("question " + this.props.question.id + " is " + this.props.question.isRight);
       }
     }
 });
@@ -35,13 +36,12 @@ var QuestionSet = React.createClass({
         );
     },
     onAnswer: function() {
-      console.log("onAnswer ran");
     }
 });
 
 
 var QUESTIONS = [
-  {id: 1, pre: 'This is my favorite type of pie:', answer: 'apple pie', isRight:false},
+  {id: 1, pre: 'This is my favorite type of pie:', answer: 'pumpkin pie', isRight: false},
   {id: 2, pre: 'This is my favorite type of burger:', answer: 'public burger', isRight: false},
   {id: 3, pre: 'This is my favorite type of sandwich:', answer: 'turkey', isRight: true},
 ];
