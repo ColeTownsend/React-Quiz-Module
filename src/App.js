@@ -1,56 +1,83 @@
 import React, { Component } from 'react';
 
+var defStyle = {
+    color: 'black',
+    fontFamily: '"SF UI Text",-apple-system, monospace',
+    lineHeight: '40px'
+};
+
+var formStyle = {
+    height: '20',
+    border: 'none',
+    borderBottom: '2px solid #04B7FF',
+    outline: 'none',
+    boxShadow: 'none',
+    margin: '0',
+    padding: '0',
+    width: '20%',
+    overflow: 'hidden'
+}
+
 var Question = React.createClass({
-    render: function() {
-        if (this.props.question.isRight) {
-          return (<span>{this.props.question.pre} <span className="flash animated">{this.props.question.answer}</span>. </span>)
-        } else {
-          return (<span>{this.props.question.pre} <input onChange={this.handleChange}></input> </span>);
-        }
+    getInitialState: function() {
+       return { isRight: this.props.question.isRight }
     },
     // handle changes in the input
     handleChange: function(event) {
-      this.props.onAnswer();
-      if (event.target.value === this.props.question.answer) {
-        this.props.onAnswer(this.props.question.id);
-        this.props.question.isRight = true;
-        console.log("question " + this.props.question.id + " is " + this.props.question.isRight);
-      }
+        this.props.onAnswer();
+        if (event.target.value.toLowerCase() === this.props.question.answer.toLowerCase()) {
+            this.props.onAnswer(this.props.question.id);
+            this.state.isRight = true;
+            console.log("question " + this.props.question.id + " is " + this.props.question.isRight);
+        }
     },
-    // getInitialState: function() {
-    //     return {
-    //       isRight: "false"
-    //     }
-    // }
+    render: function() {
+        if (this.state.isRight) {
+            return (<span>{this.props.question.pre} <span className="flash animated aqua">{this.props.question.answer}</span>.</span>)
+        } else {
+            return (<span>{this.props.question.pre} <input style={formStyle} onChange={this.handleChange}></input></span>);
+        }
+    }
 });
 
-var QuestionSet = React.createClass({
+        // var allQs = []
+        // this.props.questions.forEach((question) => {
+        //   allQs.push(<Question question={question} key={question.id} onAnswer={this.onAnswer} />);
+        // });
+
+var Quiz = React.createClass({
+    getInitialState: function() {
+        return {QuizQuestions: this.props.questions}
+    },
     render: function() {
         var allQs = []
         this.props.questions.forEach((question) => {
-          allQs.push(<Question question={question} key={question.id} onAnswer={this.onAnswer} />);
+          allQs.push(<Question question={question} key={question.id} onAnswer={this.onAnswer} isRight={this.state.isRight} />);
         });
-
         return (
-            <section className="container px2 mh4 flex flex-center">
-              <div className="p2">
-              <p className="serif h3 h3-responsive bold fuschia">{allQs}</p>
-              </div>
-            </section>
+          <p className="h4 h4-responsive" style={defStyle}>{allQs}</p>
         );
     },
     onAnswer: function() {
-      this.forceUpdate(); // going to take this out.
+        this.setState
     }
 });
 
 
-var QUESTIONS = [
-  {id: 1, pre: 'This is my favorite type of pie:', answer: 'pumpkin', isRight: false},
-  {id: 2, pre: 'This is my favorite type of burger:', answer: 'public', isRight: false},
-  {id: 3, pre: 'This is my favorite type of sandwich:', answer: 'turkey', isRight: true},
+var QUIZ1 = [
+    {id: 1, pre: 'This is my favorite type of pie:', answer: 'pumpkin', isRight: false},
+    {id: 2, pre: 'This is my favorite type of burger (or the place its from):', answer: 'public', isRight: false},
+    {id: 3, pre: 'This is my favorite type of sandwich:', answer: 'turkey', isRight: false},
 ];
 
-React.render(<QuestionSet questions={QUESTIONS} />, document.body);
+var QUIZ2 = [
+    {id: 1, pre: 'This is my favorite type of pizza:', answer: 'three cheese', isRight: false},
+    {id: 2, pre: 'This is my favorite place:', answer: 'buffalo', isRight: false},
+    {id: 3, pre: 'This is where I went to school:', answer: 'Williams', isRight: false},
+];
+
+React.render(<Quiz questions={QUIZ1} />, document.getElementById('quiz1'));
+React.render(<Quiz questions={QUIZ2} />, document.getElementById('quiz2'));
+
 
 
