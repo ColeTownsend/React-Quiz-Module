@@ -15,7 +15,9 @@ var formStyle = {
     margin: '0',
     padding: '0',
     width: '20%',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    paddingLeft: '10px',
+    paddingRight: '10px',
 }
 
 var Question = React.createClass({
@@ -25,9 +27,9 @@ var Question = React.createClass({
     // handle changes in the input
     handleChange: function(event) {
         this.props.onAnswer();
-        if (event.target.value.toLowerCase() === this.props.question.answer.toLowerCase()) {
+        if (event.target.value === this.props.question.answer) {
             this.props.onAnswer(this.props.question.id);
-            this.state.isRight = true;
+            this.setState({isRight: true});
             console.log("question " + this.props.question.id + " is " + this.props.question.isRight);
         }
     },
@@ -76,8 +78,15 @@ var QUIZ2 = [
     {id: 3, pre: 'This is where I went to school:', answer: 'Williams', isRight: false},
 ];
 
+var QUIZ3 = [
+    {id: 1, pre: 'Do I wear socks when I run:', answer: 'no', isRight: false},
+    {id: 2, pre: 'What is my middle name:', answer: 'Nathaniel', isRight: false},
+    {id: 3, pre: 'What was my major in college:', answer: 'art hitory', isRight: false},
+];
+
 React.render(<Quiz questions={QUIZ1} />, document.getElementById('quiz1'));
 React.render(<Quiz questions={QUIZ2} />, document.getElementById('quiz2'));
+React.render(<Quiz questions={QUIZ3} />, document.getElementById('quiz3'));
 
 
 

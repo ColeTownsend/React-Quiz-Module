@@ -2,17 +2,26 @@
 <html>
   <head>
     <title>Quiz</title>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="http://www.basscss.com/basscraft/css/basscraft.min.css">
     <link rel="stylesheet" href="http://daneden.github.io/animate.css/animate.min.css">
     <style>
+      .container {
+        max-width: 80vw;
+        margin: 40px auto;
+      }
+      div {
+        display: block;
+        float: none;
+        margin: 20px 0;
+      }
     </style>
   </head>
   <body>
     <div class="" id='root'>
-      <section className="container p4 mh4 flex flex-center">
+      <section class="container p4 mh4 flex flex-column flex-center">
         <div id="quiz1"></div>
         <div id="quiz2"></div>
+        <div id="quiz3"></div>
       </section>
     </div>
     <script src="/static/bundle.js"></script>
