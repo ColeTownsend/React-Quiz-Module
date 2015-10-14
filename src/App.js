@@ -14,7 +14,8 @@ export class App extends Component {
     console.log('render app')
     return (
       <div>
-        <Quiz questions={QUIZ1} />
+        <h1>Hello</h1>
+        <Quiz questions={QUIZ1}/>
       </div>
     );
   }

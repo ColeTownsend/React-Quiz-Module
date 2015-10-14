@@ -1,4 +1,6 @@
 import React from 'react';
 import { App } from './App';
+var ReactDOM = require('react-dom');
 
-React.render(<App />, document.getElementById('quiz1'));
+
+ReactDOM.render(<App />, document.getElementById('quiz1'));
