@@ -6,16 +6,13 @@ export class Quiz extends Component {
   constructor(props) {
     super(props);
     console.log(this.props.questions[0]['answer']);
-    return {QuizQuestions: this.props.questions};
+    this.state = {QuizQuestions: this.props.questions};
   }
 
   onAnswer() {
     console.log('on answer');
   }
-
   render() {
-    console.log('rendering');
-
     var allQs = []
     this.props.questions.forEach((question) => {
       allQs.push(<Question question={question} key={question.id} onAnswer={this.onAnswer} isRight={this.state.isRight} />);
