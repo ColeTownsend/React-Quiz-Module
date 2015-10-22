@@ -24,11 +24,21 @@ export class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {isRight: this.props.question.isRight};
+    console.log(this.state.isRight)
   }
 
-  handleChance(event) {
-    this.props.onAnswer();
-    if (event.target.value.toLowerCase() === this.props.question.answer.toLowerCase()) {
+  onAnswer() {
+    console.log('on answer');
+  }
+
+  handleChange(event) {
+    // debugger;
+    // this.onAnswer();
+    // debugger;
+    console.log("State is: " + this.state.isRight);
+    console.log(event.target.value);
+    console.log(this.props.answer);
+    if (event.target.value.toLowerCase().trim() === this.props.question.answer.toLowerCase()) {
         this.props.onAnswer(this.props.question.id);
         this.setState({isRight: true});
         console.log('question ' + this.props.question.id + ' is ' + this.props.question.isRight);
@@ -37,9 +47,9 @@ export class Question extends Component {
 
   render() {
     if (this.state.isRight) {
-        return (<span>{this.props.question.pre} <span className='flash animated aqua'>{this.props.question.answer}</span>.</span>)
+        return (<span>{this.props.question.pre} <span className='flash animated blue'>{this.props.question.answer}</span>.</span>)
     } else {
-        return (<span>{this.props.question.pre} <input style={formStyle} onChange={this.handleChange}></input></span>);
+        return (<span>{this.props.question.pre} <input style={formStyle} onChange={(e) => { this.handleChange(e) }}></input></span>);
     }
   }
 }

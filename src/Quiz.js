@@ -7,11 +7,13 @@ export class Quiz extends Component {
     super(props);
     console.log(this.props.questions[0]['answer']);
     this.state = {QuizQuestions: this.props.questions};
+    console.log(this.state);
   }
 
   onAnswer() {
     console.log('on answer');
   }
+
   render() {
     var allQs = []
     this.props.questions.forEach((question) => {
